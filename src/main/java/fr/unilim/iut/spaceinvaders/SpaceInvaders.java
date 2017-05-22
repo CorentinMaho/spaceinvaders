@@ -12,6 +12,7 @@ public class SpaceInvaders implements Jeu {
 	private Vaisseau vaisseau;
 	private Missile missile;
 	private Envahisseur envahisseur;
+	private Collision collision;
 
 	public SpaceInvaders(int longueur, int hauteur) {
 		this.longueur = longueur;
@@ -124,6 +125,13 @@ public class SpaceInvaders implements Jeu {
 		}
 		if (missile != null) {
 			deplacerMissile();
+		}
+		if((missile != null)&&(envahisseur != null)){
+			if(collision.detecterColision(missile, envahisseur)){
+				missile = null;
+				envahisseur = null;
+			}
+			
 		}
 		if (envahisseur != null) {
 			deplacerEnvahisseur();
