@@ -1,68 +1,28 @@
 package fr.unilim.iut.spaceinvaders;
 
-public class Vaisseau {
+import fr.unilim.iut.spaceinvaders.utils.MissileException;
 
-	Position origine;
-	Dimension dimension;
-
-	public Vaisseau(int longueur, int hauteur) {
-		this(longueur, hauteur, 0, 0);
+public class Vaisseau extends Sprite {
+	public Vaisseau(Dimension dimension, Position positionOrigine, int vitesse) {
+		super(dimension, positionOrigine, vitesse);
 	}
 
-	public Vaisseau(int longueur, int hauteur, int x, int y) {
-		this.dimension = new Dimension(longueur, hauteur);
-	    this.origine = new Position (x,y);
+	public Missile tirerUnMissile(Dimension dimensionMissile, int vitesseMissile) {
+		if (dimensionMissile.longueur() > this.dimension.longueur()) {
+			try {
+				throw new MissileException("La longueur du missile est supérieure à celle du vaisseau!");
+			} catch (MissileException me) {
+				me.printStackTrace();
+			}
+		}
+		Position positionOrigineMissile = calculerLaPositionDeTirDuMissile(dimensionMissile);
+		return new Missile(dimensionMissile, positionOrigineMissile, vitesseMissile);
 	}
 
-	public boolean occupeLaPosition(int x, int y) {
-		return (estAbscisseCouverte(x) && estOrdonneeCouverte(y));
+	private Position calculerLaPositionDeTirDuMissile(Dimension dimensionMissile) {
+		int abscisseMilieuVaisseau = this.abscisseLaPlusAGauche() + (this.longueur() / 2);
+		int abscisseOrigineMissile = abscisseMilieuVaisseau - (dimensionMissile.longueur() / 2);
+		int ordonneeeOrigineMissile = this.ordonneeLaPlusBasse() - 1;
+		return new Position(abscisseOrigineMissile, ordonneeeOrigineMissile);
 	}
-
-	public boolean estAbscisseCouverte(int x) {
-		return (abscisseLaPlusAGauche() <= x) && (x <= abscisseLaPlusADroite());
-	}
-
-	public boolean estOrdonneeCouverte(int y) {
-		return (ordonneeLaPlusHaute() <= y) && (y <= ordonneeLaPlusBasse());
-	}
-
-	public int ordonneeLaPlusBasse() {
-		return this.origine.ordonnee();
-	}
-
-	public int ordonneeLaPlusHaute() {
-		return ordonneeLaPlusBasse() - this.dimension.hauteur() + 1;
-	}
-
-	public int abscisseLaPlusAGauche() {
-		return this.origine.abscisse();
-	}
-
-	public int abscisseLaPlusADroite() {
-		return abscisseLaPlusAGauche() + this.dimension.longueur() - 1;
-	}
-
-	public void seDeplacerVersLaDroite() {
-	    this.origine.changerAbscisse(this.origine.abscisse()+1);
-
-	}
-
-	public int getX() {
-		return this.origine.abscisse();
-	}
-
-	public int getY() {
-		return this.origine.ordonnee();
-	}
-
-	public void seDeplacerVersLaGauche() {
-	    this.origine.changerAbscisse(this.origine.abscisse()+1);
-
-	}
-
-	public void positionner(int x, int y) {
-		  this.origine.changerAbscisse(x);
-		  this.origine.changerOrdonnee(y);
-	}
-
 }
