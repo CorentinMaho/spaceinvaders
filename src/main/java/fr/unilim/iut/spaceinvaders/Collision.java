@@ -2,26 +2,26 @@ package fr.unilim.iut.spaceinvaders;
 
 public class Collision {
 	
-	public boolean detecterColision(Missile missile, Envahisseur envahisseur) {
-		
-		return (hautMissilePlusBasQueBasEnvahisseur(missile, envahisseur)&&missileEstAligneAvecEnvahisseur(missile, envahisseur));
-		
+	public boolean detecterCollision(Sprite spriteUne, Sprite spriteDeux) {
+		return (abscisseAGaucheInferieurAAbscisseADroite(spriteUne, spriteDeux) &&
+				abscisseADroiteSuperieurAAbscisseAGauche(spriteUne, spriteDeux) &&
+				ordonneeBasseInferieurAOrdonneeHaute(spriteUne, spriteDeux) &&
+				ordonneeHauteSuperieurAOrdonneeBasse(spriteUne, spriteDeux));
 	}
 
-	public boolean missileEstAligneAvecEnvahisseur(Missile missile, Envahisseur envahisseur) {
-		return toucheParLaGauche(missile, envahisseur)&&toucheParLaDroite(missile, envahisseur);
+	public boolean ordonneeHauteSuperieurAOrdonneeBasse(Sprite spriteUne, Sprite spriteDeux) {
+		return spriteUne.ordonneeLaPlusHaute() > spriteDeux.ordonneeLaPlusBasse();
 	}
 
-	public boolean toucheParLaDroite(Missile missile, Envahisseur envahisseur) {
-		return missile.abscisseLaPlusAGauche()>envahisseur.abscisseLaPlusADroite();
+	public boolean ordonneeBasseInferieurAOrdonneeHaute(Sprite spriteUne, Sprite spriteDeux) {
+		return spriteUne.ordonneeLaPlusBasse() < spriteDeux.ordonneeLaPlusHaute();
 	}
 
-	public boolean toucheParLaGauche(Missile missile, Envahisseur envahisseur) {
-		return missile.abscisseLaPlusADroite()>envahisseur.abscisseLaPlusAGauche();
+	public boolean abscisseADroiteSuperieurAAbscisseAGauche(Sprite spriteUne, Sprite spriteDeux) {
+		return spriteUne.abscisseLaPlusADroite() > spriteDeux.abscisseLaPlusAGauche();
 	}
 
-	public boolean hautMissilePlusBasQueBasEnvahisseur(Missile missile, Envahisseur envahisseur) {
-		return missile.ordonneeLaPlusHaute()<envahisseur.ordonneeLaPlusBasse();
+	public boolean abscisseAGaucheInferieurAAbscisseADroite(Sprite spriteUne, Sprite spriteDeux) {
+		return spriteUne.abscisseLaPlusAGauche() < spriteDeux.abscisseLaPlusADroite();
 	}
-
 }
