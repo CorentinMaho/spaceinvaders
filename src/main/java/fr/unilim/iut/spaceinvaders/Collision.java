@@ -10,18 +10,18 @@ public class Collision {
 	}
 
 	public boolean ordonneeHauteSuperieurAOrdonneeBasse(Sprite spriteUne, Sprite spriteDeux) {
-		return spriteUne.ordonneeLaPlusHaute() > spriteDeux.ordonneeLaPlusBasse();
+		return spriteUne.ordonneeLaPlusHaute() >= spriteDeux.ordonneeLaPlusBasse();
 	}
 
 	public boolean ordonneeBasseInferieurAOrdonneeHaute(Sprite spriteUne, Sprite spriteDeux) {
-		return spriteUne.ordonneeLaPlusBasse() < spriteDeux.ordonneeLaPlusHaute();
+		return spriteUne.ordonneeLaPlusBasse() <= spriteDeux.ordonneeLaPlusHaute();
 	}
 
 	public boolean abscisseADroiteSuperieurAAbscisseAGauche(Sprite spriteUne, Sprite spriteDeux) {
-		return spriteUne.abscisseLaPlusADroite() > spriteDeux.abscisseLaPlusAGauche();
+		return spriteUne.abscisseLaPlusADroite() >= spriteDeux.abscisseLaPlusAGauche();
 	}
 
 	public boolean abscisseAGaucheInferieurAAbscisseADroite(Sprite spriteUne, Sprite spriteDeux) {
-		return spriteUne.abscisseLaPlusAGauche() < spriteDeux.abscisseLaPlusADroite();
+		return spriteUne.abscisseLaPlusAGauche() <= spriteDeux.abscisseLaPlusADroite();
 	}
-}
+}  
